@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="7.539" timestamp="2024-09-12T17:43:07.732069+08:00" hostname="EISSENHUAN-NBVR"><testcase classname="test_dir.test_baidu_auto.TestSearch" name="test_baidu_search_case" time="6.018"><failure message="TypeError: 'str' object is not callable">self = &lt;test_baidu_auto.TestSearch object at 0x00000131EF69B010&gt;
+browser = &lt;selenium.webdriver.chrome.webdriver.WebDriver (session="87d8e068af823005a9cf0dab20f08c40")&gt;, base_url = ''
+
+    def test_baidu_search_case(self, browser, base_url):
+        """百度搜索：pytest"""
+        page = BaiduPAGE(browser)
+&gt;       page.get_url(base_url)
+E       TypeError: 'str' object is not callable
+
+test_dir\test_baidu_auto.py:14: TypeError</failure></testcase><testcase classname="test_dir.test_baidu_auto.TestSearchSettings" name="test_baidu_search_setting" time="0.007"><failure message="selenium.common.exceptions.InvalidArgumentException: Message: invalid argument&#10;  (Session info: chrome=128.0.6613.137)&#10;Stacktrace:&#10;&#09;GetHandleVerifier [0x00007FF65A75B632+29090]&#10;&#09;(No symbol) [0x00007FF65A6CE6E9]&#10;&#09;(No symbol) [0x00007FF65A58AFF9]&#10;&#09;(No symbol) [0x00007FF65A573457]&#10;&#09;(No symbol) [0x00007FF65A571A2F]&#10;&#09;(No symbol) [0x00007FF65A57214C]&#10;&#09;(No symbol) [0x00007FF65A58E231]&#10;&#09;(No symbol) [0x00007FF65A6273FE]&#10;&#09;(No symbol) [0x00007FF65A6066EA]&#10;&#09;(No symbol) [0x00007FF65A6265D9]&#10;&#09;(No symbol) [0x00007FF65A606493]&#10;&#09;(No symbol) [0x00007FF65A5D09B1]&#10;&#09;(No symbol) [0x00007FF65A5D1B11]&#10;&#09;GetHandleVerifier [0x00007FF65AA7883D+3294125]&#10;&#09;GetHandleVerifier [0x00007FF65AAC4423+3604371]&#10;&#09;GetHandleVerifier [0x00007FF65AABA2E7+3563095]&#10;&#09;GetHandleVerifier [0x00007FF65A816F16+797318]&#10;&#09;(No symbol) [0x00007FF65A6D986F]&#10;&#09;(No symbol) [0x00007FF65A6D5454]&#10;&#09;(No symbol) [0x00007FF65A6D55E0]&#10;&#09;(No symbol) [0x00007FF65A6C4A7F]&#10;&#09;BaseThreadInitThunk [0x00007FF9E0857374+20]&#10;&#09;RtlUserThreadStart [0x00007FF9E0E9CC91+33]">self = &lt;test_baidu_auto.TestSearchSettings object at 0x00000131F2460D90&gt;
+browser = &lt;selenium.webdriver.chrome.webdriver.WebDriver (session="87d8e068af823005a9cf0dab20f08c40")&gt;, base_url = ''
+
+    def test_baidu_search_setting(self, browser, base_url):
+        page = BaiduPAGE(browser)
+&gt;       page.open(base_url)
+
+test_dir\test_baidu_auto.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\lenovo\AppData\Local\Programs\Python\Python311\Lib\site-packages\poium\base_page.py:106: in open
+    self.driver.get(root_uri + uri)
+C:\Users\lenovo\AppData\Local\Programs\Python\Python311\Lib\site-packages\selenium\webdriver\remote\webdriver.py:363: in get
+    self.execute(Command.GET, {"url": url})
+C:\Users\lenovo\AppData\Local\Programs\Python\Python311\Lib\site-packages\selenium\webdriver\remote\webdriver.py:354: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x00000131F163E3D0&gt;
+response = {'status': 400, 'value': '{"value":{"error":"invalid argument","message":"invalid argument\\n  (Session info: chrome=1...07FF65A6C4A7F]\\n\\tBaseThreadInitThunk [0x00007FF9E0857374+20]\\n\\tRtlUserThreadStart [0x00007FF9E0E9CC91+33]\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -&gt; None:
+        """Checks that a JSON response from the WebDriver does not have an
+        error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        """
+        status = response.get("status", None)
+        if not status or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen: str = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get("value", None)
+            if value_json and isinstance(value_json, str):
+                import json
+    
+                try:
+                    value = json.loads(value_json)
+                    if len(value) == 1:
+                        value = value["value"]
+                    status = value.get("error", None)
+                    if not status:
+                        status = value.get("status", ErrorCode.UNKNOWN_ERROR)
+                        message = value.get("value") or value.get("message")
+                        if not isinstance(message, str):
+                            value = message
+                            message = message.get("message")
+                    else:
+                        message = value.get("message", None)
+                except ValueError:
+                    pass
+    
+        exception_class: Type[WebDriverException]
+        e = ErrorCode()
+        error_codes = [item for item in dir(e) if not item.startswith("__")]
+        for error_code in error_codes:
+            error_info = getattr(ErrorCode, error_code)
+            if isinstance(error_info, list) and status in error_info:
+                exception_class = getattr(ExceptionMapping, error_code, WebDriverException)
+                break
+        else:
+            exception_class = WebDriverException
+    
+        if not value:
+            value = response["value"]
+        if isinstance(value, str):
+            raise exception_class(value)
+        if message == "" and "message" in value:
+            message = value["message"]
+    
+        screen = None  # type: ignore[assignment]
+        if "screen" in value:
+            screen = value["screen"]
+    
+        stacktrace = None
+        st_value = value.get("stackTrace") or value.get("stacktrace")
+        if st_value:
+            if isinstance(st_value, str):
+                stacktrace = st_value.split("\n")
+            else:
+                stacktrace = []
+                try:
+                    for frame in st_value:
+                        line = frame.get("lineNumber", "")
+                        file = frame.get("fileName", "&lt;anonymous&gt;")
+                        if line:
+                            file = f"{file}:{line}"
+                        meth = frame.get("methodName", "&lt;anonymous&gt;")
+                        if "className" in frame:
+                            meth = f"{frame['className']}.{meth}"
+                        msg = "    at %s (%s)"
+                        msg = msg % (meth, file)
+                        stacktrace.append(msg)
+                except TypeError:
+                    pass
+        if exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if "data" in value:
+                alert_text = value["data"].get("text")
+            elif "alert" in value:
+                alert_text = value["alert"].get("text")
+            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here
+&gt;       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.InvalidArgumentException: Message: invalid argument
+E         (Session info: chrome=128.0.6613.137)
+E       Stacktrace:
+E       	GetHandleVerifier [0x00007FF65A75B632+29090]
+E       	(No symbol) [0x00007FF65A6CE6E9]
+E       	(No symbol) [0x00007FF65A58AFF9]
+E       	(No symbol) [0x00007FF65A573457]
+E       	(No symbol) [0x00007FF65A571A2F]
+E       	(No symbol) [0x00007FF65A57214C]
+E       	(No symbol) [0x00007FF65A58E231]
+E       	(No symbol) [0x00007FF65A6273FE]
+E       	(No symbol) [0x00007FF65A6066EA]
+E       	(No symbol) [0x00007FF65A6265D9]
+E       	(No symbol) [0x00007FF65A606493]
+E       	(No symbol) [0x00007FF65A5D09B1]
+E       	(No symbol) [0x00007FF65A5D1B11]
+E       	GetHandleVerifier [0x00007FF65AA7883D+3294125]
+E       	GetHandleVerifier [0x00007FF65AAC4423+3604371]
+E       	GetHandleVerifier [0x00007FF65AABA2E7+3563095]
+E       	GetHandleVerifier [0x00007FF65A816F16+797318]
+E       	(No symbol) [0x00007FF65A6D986F]
+E       	(No symbol) [0x00007FF65A6D5454]
+E       	(No symbol) [0x00007FF65A6D55E0]
+E       	(No symbol) [0x00007FF65A6C4A7F]
+E       	BaseThreadInitThunk [0x00007FF9E0857374+20]
+E       	RtlUserThreadStart [0x00007FF9E0E9CC91+33]
+
+C:\Users\lenovo\AppData\Local\Programs\Python\Python311\Lib\site-packages\selenium\webdriver\remote\errorhandler.py:229: InvalidArgumentException</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="27.387" timestamp="2024-10-04T01:35:04.107955+08:00" hostname="EISSENHUAN-NBVR"><testcase classname="test_dir.test_parametrize" name="test_baidu_search[1-selenium]" time="16.901"><failure message="AssertionError: assert 'selenium_百度搜索' == 'selenium_度搜索'&#10;  &#10;  - selenium_度搜索&#10;  + selenium_百度搜索&#10;  ?          +">name = 1, search_key = 'selenium'
+browser = &lt;selenium.webdriver.chrome.webdriver.WebDriver (session="d72c6985c6825b6e6539da54a50ad9bd")&gt;
+base_url = 'https://www.baidu.com'
+
+    @pytest.mark.parametrize(
+        "name, search_key",
+        get_data(base_path + "/test_dir/data/data_file.json")
+    )
+    def test_baidu_search(name, search_key, browser, base_url):
+        """
+        读取文件参数化
+        """
+        page = BaiduPAGE(browser)
+        page.open(base_url)
+        page.search_input = search_key
+        page.search_button.click()
+        sleep(2)
+&gt;       assert browser.title == str(search_key) + "_度搜索"
+E       AssertionError: assert 'selenium_百度搜索' == 'selenium_度搜索'
+E         
+E         - selenium_度搜索
+E         + selenium_百度搜索
+E         ?          +
+
+test_dir\test_parametrize.py:63: AssertionError</failure></testcase><testcase classname="test_dir.test_parametrize" name="test_baidu_search[2-poium]" time="9.034"><failure message="AssertionError: assert 'poium_百度搜索' == 'poium_度搜索'&#10;  &#10;  - poium_度搜索&#10;  + poium_百度搜索&#10;  ?       +">name = 2, search_key = 'poium'
+browser = &lt;selenium.webdriver.chrome.webdriver.WebDriver (session="d72c6985c6825b6e6539da54a50ad9bd")&gt;
+base_url = 'https://www.baidu.com'
+
+    @pytest.mark.parametrize(
+        "name, search_key",
+        get_data(base_path + "/test_dir/data/data_file.json")
+    )
+    def test_baidu_search(name, search_key, browser, base_url):
+        """
+        读取文件参数化
+        """
+        page = BaiduPAGE(browser)
+        page.open(base_url)
+        page.search_input = search_key
+        page.search_button.click()
+        sleep(2)
+&gt;       assert browser.title == str(search_key) + "_度搜索"
+E       AssertionError: assert 'poium_百度搜索' == 'poium_度搜索'
+E         
+E         - poium_度搜索
+E         + poium_百度搜索
+E         ?       +
+
+test_dir\test_parametrize.py:63: AssertionError</failure></testcase></testsuite></testsuites>

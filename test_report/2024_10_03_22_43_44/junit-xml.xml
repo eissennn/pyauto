@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="5.363" timestamp="2024-10-03T22:43:44.594164+08:00" hostname="EISSENHUAN-NBVR"><testcase classname="test_dir.test_baidu_auto.TestSearch" name="test_baidu_search_case" time="4.275"><failure message="TypeError: 'str' object is not callable">self = &lt;test_baidu_auto.TestSearch object at 0x0000018DFF308610&gt;
+browser = &lt;selenium.webdriver.chrome.webdriver.WebDriver (session="c043f478b50dabd76ebcdd50ca8c3f0d")&gt;
+base_url = 'https://www.baidu.com'
+
+        def test_baidu_search_case(self, browser, base_url):
+            """百度搜索：pytest"""
+    # 创建BaiduPAGE类，传入browser驱动
+            page = BaiduPAGE(browser)
+&gt;           page.get_url(base_url)
+E           TypeError: 'str' object is not callable
+
+test_dir\test_baidu_auto.py:16: TypeError</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="15.514" timestamp="2024-10-04T00:41:38.399179+08:00" hostname="EISSENHUAN-NBVR"><testcase classname="test_dir.test_baidu_auto.TestSearch" name="test_baidu_search_case" time="15.246" /></testsuite></testsuites>
